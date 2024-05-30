@@ -1,4 +1,4 @@
-from Motor import *
+from motor import *
 from threading import Thread
 import os 
 import time
@@ -22,40 +22,40 @@ else:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
 
-MOTOR1 = Motor(1,"CURRENT-BASED-POSITION",80)
-MOTOR2 = Motor(2,"CURRENT-BASED-POSITION",80)
+MOTOR1 = Motor("COM7",57600,1,"CURRENT-BASED-POSITION",80)
+# MOTOR2 = Motor(2,"CURRENT-BASED-POSITION",80)
 
+# __init__(self, _PORT_, _BAUDRATE_, _MOTOR_ID_, _MODE_, _CURRENT_LIMIT_):
+# SaveDataFlag = True
+# dt = 10
 
-SaveDataFlag = True
-dt = 10
-
-def Grasp_Position(goalposition1, goalposition2):
-    dx1_present_position = MOTOR1.currentPosition()
-    dx2_present_position = MOTOR1.currentPosition()
+# def Grasp_Position(goalposition1, goalposition2):
+#     dx1_present_position = MOTOR1.currentPosition()
+#     dx2_present_position = MOTOR1.currentPosition()
     
-    MOTOR1.movePosition(goalposition1)
-    MOTOR2.movePosition(goalposition2)  
+#     MOTOR1.movePosition(goalposition1)
+#     MOTOR2.movePosition(goalposition2)  
     
-def Grasp():
-    # Grasp_Position_L = 6000
-    # Grasp_Position_R = 6000
-    Grasp_Position_L = 5000
-    Grasp_Position_R = 6000
-    MOTOR1.movePosition(Grasp_Position_L)
-    MOTOR2.movePosition(Grasp_Position_R)  
-    SaveData()
+# def Grasp():
+#     # Grasp_Position_L = 6000
+#     # Grasp_Position_R = 6000
+#     Grasp_Position_L = 5000
+#     Grasp_Position_R = 6000
+#     MOTOR1.movePosition(Grasp_Position_L)
+#     MOTOR2.movePosition(Grasp_Position_R)  
+#     SaveData()
 
-def SaveData():
-    start_time = time.time()
-    while (time.time() - start_time)<dt:
-        MOTOR1.currentCurrent()
-        MOTOR1.currentPosition()
-        MOTOR1.currentVelocity()
-        MOTOR2.currentCurrent()
-        MOTOR2.currentPosition()
-        MOTOR2.currentVelocity()
-        MOTOR1.saveData()
-        MOTOR2.saveData()
+# def SaveData():
+#     start_time = time.time()
+#     while (time.time() - start_time)<dt:
+#         MOTOR1.currentCurrent()
+#         MOTOR1.currentPosition()
+#         MOTOR1.currentVelocity()
+#         MOTOR2.currentCurrent()
+#         MOTOR2.currentPosition()
+#         MOTOR2.currentVelocity()
+#         MOTOR1.saveData()
+#         MOTOR2.saveData()
 
     
 def main():
@@ -65,20 +65,20 @@ def main():
         print(cmd)
         if(cmd == 'Q'):
             MOTOR1.TorqueDisable()
-            MOTOR2.TorqueDisable()
             break
         elif(cmd == '1'):
-            # global SaveDataFlag
-            # SaveDataFlag= False
-            # p1 = MOTOR1.currentPosition()
-            # p2 = MOTOR2.currentPosition()
-            # print("now:" ,p1,p2)  
-            Grasp()
+            MOTOR1.moveCurrent(100)
             
         elif(cmd == '2'):
-            p1 = MOTOR1.currentPosition()
-            p2 = MOTOR2.currentPosition()
-            Grasp()
+            MOTOR1.currentPosition()
+            print(MOTOR1.POSITION)
+        elif(cmd == '3'):
+            MOTOR1.movePosition(2000)
+            print(MOTOR1.POSITION)
+        elif(cmd == '4'):
+            MOTOR1.currentPosition()
+            print(MOTOR1.POSITION)
+            MOTOR1.moveCurrentbasedPosition(MOTOR1.POSITION+2000)
 
 
     # t1.end()
