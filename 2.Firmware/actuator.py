@@ -16,17 +16,17 @@ class Actuator:
         p2 = self.Motor2.POSITION
         print(p1_d - p1)
         print(p2_d - p2)
-        if abs(p1_d - p1)> abs(p2_d - p2):
-            delta_d1 = int((p1_d - p1)/abs(p1_d - p1)* 100)
-            delta_d2  = int((p2_d - p2)/abs(p1_d - p1)*100)
-        else:
-            delta_d1 = int((p1_d - p1)/abs(p2_d - p2)*100)
-            delta_d2  = int((p2_d - p2)/abs(p2_d - p2)*100)
+        # if abs(p1_d - p1)> abs(p2_d - p2):
+        delta_d1 = int((p1_d - p1)/abs(p1_d - p1)* 5500)
+        delta_d2  = int((p2_d - p2)/abs(p1_d - p1)*5500)
+        # else:
+        # delta_d1 = int((p1_d - p1)/abs(p2_d - p2)*100)
+        # delta_d2  = int((p2_d - p2)/abs(p2_d - p2)*100)
         
-        while abs(p1 - p1_d) > 200 and abs(p2 - p2_d)>200:
+        # while abs(p1 - p1_d) > 200 and abs(p2 - p2_d)>200:
             
-            self.Motor1.movePosition(self.Motor1.POSITION+delta_d1)
-            self.Motor2.movePosition(self.Motor2.POSITION+delta_d2)
-            self.Motor1.POSITION = self.Motor1.POSITION + delta_d1
-            self.Motor2.POSITION = self.Motor2.POSITION + delta_d2
+        self.Motor1.movePosition(self.Motor1.POSITION+delta_d1)
+        self.Motor2.movePosition(self.Motor2.POSITION+delta_d2)
+        self.Motor1.POSITION = self.Motor1.POSITION + delta_d1
+        self.Motor2.POSITION = self.Motor2.POSITION + delta_d2
           
