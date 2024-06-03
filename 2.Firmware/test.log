@@ -1,0 +1,3 @@
+2024-06-03 16:59:43.751 | INFO     | __main__:__init__:10 - Initialization Two Line Actuators: X_controller and Y_controller
+2024-06-03 16:59:46.947 | INFO     | __main__:calibration:23 - Calibration Result: X_controller Initial Position (-13427, 13427)
+2024-06-03 16:59:46.948 | INFO     | __main__:calibration:24 - Calibration Finished

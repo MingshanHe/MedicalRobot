@@ -61,7 +61,7 @@ class Motor:
         self.ADDR_PRO_GOAL_VELOCITY      = 104
         self.ADDR_PRO_PRESENT_VELOCITY   = 128
         # Mode
-        self.MODEdic = {"CURRENT": 0, "VELOCITY": 1, "POSITION": 3, "EXTENDED POSITION CONTROL": 4,"CURRENT-BASED-POSITION": 5}
+        self.MODEdic = {"CURRENT": 0, "VELOCITY": 1, "POSITION": 3, "EXTENDED-POSITION": 4,"CURRENT-BASED-POSITION": 5}
         # Params
         self.CURRENT = 0
         self.POSITION = 0
@@ -69,9 +69,11 @@ class Motor:
 
 
     def changeMode(self, _MODE_):
+        self.TorqueDisable()
         result, error = self.write(1, self.ADDR_PRO_OPERATING_MODE, self.MODEdic[_MODE_])
         if error==0:
             print("[MOTOR ID: %03d]: Operating mode changed." %(self.MOTOR_ID))
+        self.TorqueEnable()
             
     def read(self, _byte_, _addr_):
         if _byte_ == 1:
@@ -102,14 +104,17 @@ class Motor:
         if position > 2147483647:
                 position = position - 4294967296
         self.POSITION = position
+        return self.POSITION
 
     def currentCurrent(self):
         current, result, error = self.read(4, self.ADDR_PRO_PRESENT_CURRENT)
         self.CURRENT = current
+        return self.CURRENT
 
     def currentVelocity(self):
         velocity, dx_comm_result, dx_error = self.read(4, self.ADDR_PRO_PRESENT_VELOCITY)
         self.VELOCITY = velocity
+        return self.VELOCITY
 
     def movePosition(self,position):
         result, error = self.write(4, self.ADDR_PRO_GOAL_POSITION, position)
@@ -119,21 +124,6 @@ class Motor:
 
     def moveVelocity(self,velocity):
         result, error = self.write(4, self.ADDR_PRO_GOAL_VELOCITY, velocity)
-
-    def moveCurrentbasedPosition(self, position):
-        self.currentPosition()
-        present_position = self.POSITION
-        self.movePosition(position)
-        while True:
-            # Read present position
-            position_before = present_position
-            self.currentPosition()
-            present_position = self.POSITION
-            position_after = present_position
-            if abs(present_position-position) == 0:
-                self.movePosition(present_position)
-                print("1")
-                break
 
     def TorqueEnable(self):
         result, error = self.write(1, self.ADDR_PRO_TORQUE_ENABLE, 1)
