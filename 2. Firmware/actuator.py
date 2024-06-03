@@ -24,7 +24,9 @@ class Actuator:
         self.Motor1.movePosition(p1)
         self.Motor2.movePosition(p2)
         
-        
+    def disable(self):
+        self.Motor1.TorqueDisable()
+        self.Motor2.TorqueDisable()
     def move_T(self, p1_d, p2_d):
         
         self.Motor1.currentPosition()

@@ -4,7 +4,7 @@ import os
 
 PROTOCOL_VERSION            = 2.0     
 BAUDRATE                    = 57600
-PORT                        = 'COM7'
+PORT                        = 'COM12'
  
 # Initialize PortHandler instance
 portHandler = PortHandler(PORT)
