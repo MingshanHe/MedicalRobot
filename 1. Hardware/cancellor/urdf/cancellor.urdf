@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="cancellor">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="8.06501835494806E-11 -0.0338780544641589 -6.13519647304395E-10"
+        rpy="0 0 0" />
+      <mass
+        value="0.0365925774909924" />
+      <inertia
+        ixx="1.14555538013607E-05"
+        ixy="1.40790430797004E-13"
+        ixz="-3.85235521580481E-14"
+        iyy="5.37588411827752E-06"
+        iyz="-1.17698572171165E-13"
+        izz="1.14526674484253E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cancellor/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 0.4" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cancellor/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="end_link">
+    <inertial>
+      <origin
+        xyz="5.39151995586174E-09 2.48615892588212E-09 0.0139122030459944"
+        rpy="0 0 0" />
+      <mass
+        value="0.000930041634459067" />
+      <inertia
+        ixx="1.84743464948672E-07"
+        ixy="1.91778613439961E-15"
+        ixz="3.6797273718863E-14"
+        iyy="1.84743477463938E-07"
+        iyz="1.74269088454371E-14"
+        izz="1.15847934315868E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cancellor/meshes/end_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 0.4" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://cancellor/meshes/end_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tip_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0.007"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="end_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+</robot>
