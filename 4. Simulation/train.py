@@ -1,4 +1,6 @@
-from cancellor import Cancellor
+from controller import DQN
+import torch
+import random
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -11,12 +13,7 @@ parser.add_argument('--save_data', default=True)
 parser.add_argument('--method', default='RL', type=str)
 args = parser.parse_args()
 
+policy = DQN(args)
 
-
-def main():
-    cancellor = Cancellor(_save_data_=True,_method_="RL",args=args)
-    cancellor.loopfunc()
-
-        
-if __name__ == '__main__':
-    main()
+while True:
+    policy.run()
