@@ -4,6 +4,7 @@ import os
 import time
 from loguru import logger
 import math
+
 class Controller:
     def __init__(self) -> None:
         logger.add(os.getcwd()  + '\\test.log')
