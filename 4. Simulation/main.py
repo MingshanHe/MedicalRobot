@@ -14,7 +14,7 @@ args = parser.parse_args()
 
 
 def main():
-    cancellor = Cancellor(_save_data_=True,_method_="RL",args=args)
+    cancellor = Cancellor(_save_data_=True,_method_="MANIFOLD",args=args)
     cancellor.loopfunc()
 
         

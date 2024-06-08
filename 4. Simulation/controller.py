@@ -5,6 +5,11 @@ import torch.distributions
 import torch.nn as nn
 import torch.nn.functional as F
 
+import autograd.numpy as anp
+import pymanopt
+import pymanopt.manifolds
+import pymanopt.optimizers
+
 class PIDcontroller():
     def __init__(self):
         self.P = 1
@@ -30,7 +35,52 @@ class PIDcontroller():
         else:
             return 0,0
 
+class Manifold():
+    def __init__(self):
+        dim = 2
+        self.manifold = pymanopt.manifolds.Sphere(dim)
+    def compute(self, pointsList, xb, yb, xt, yt):
+        x0 = 0
+        y0 = 0
+        if (not pointsList[0]) and (xb >= -0.08) :
+            x0 = xb
+            y0 = 0
+        elif (not pointsList[1]) and (yb >=-0.04):
+            x0 = -0.08
+            y0 = yb
+        elif (not pointsList[2]) and (xb <=0.08):
+            x0 = xb
+            y0 = -0.04
+        elif (not pointsList[3]) and  (yb >=-0.08):
+            x0 = 0.08
+            y0 = yb
+        elif (not pointsList[4]) and (xb >=-0.08):
+            x0 = xb
+            y0 = -0.08
+        else:
+            return 0,0
+        # matrix = anp.array([[xb,yb,0],[xt,yt,0],[x0,y0,0]])
+        matrix = anp.array([[xt,x0],[yb,y0]])
 
+        matrix = 0.5 * (matrix + matrix.T)
+
+        @pymanopt.function.autograd(self.manifold)
+        def cost(point):
+            return -point @ matrix @ point
+
+        problem = pymanopt.Problem(self.manifold, cost)
+        optimizer = pymanopt.optimizers.SteepestDescent()
+        result = optimizer.run(problem)
+        mapto = 0.02
+        if xt > x0:
+            x = -abs(result.point[0]*mapto)
+        else:
+            x= abs(result.point[0]*mapto)
+        if yt > y0:
+            y = -abs(result.point[1]*mapto)
+        else:
+            y = abs(result.point[1]*mapto)
+        return x, y
 class Net(nn.Module):
     def __init__(self, num_obs = 6, num_act = 4):
         super(Net, self).__init__()
@@ -86,7 +136,7 @@ class DQN():
         with torch.no_grad():
             q_val_next = self.q_target(next_obs).reshape(self.batch_size, -1).max(1)[0]
 
-        target = reward + self.discount * q_val_next * done_mask
+        target = reward #+ self.discount * q_val_next * done_mask
         loss = F.smooth_l1_loss(q_val, target)
 
         loss.backward()
@@ -113,7 +163,7 @@ class DQN():
             true_act = torch.cat([(q_table[b] == q_table[b].max()).nonzero(as_tuple=False)[0] for b in range(self.args.num_envs)])
             true_act = true_act / (self.act_space - 1)
         act = coin.float() * rand_act + (1 - coin.float()) * true_act
-        mapto = 1
+        mapto = 0.1
         # return 0,1
         if (not pointsList[0]) and (xb >= -0.08) :
             return 0, mapto * (act - 0.5) 

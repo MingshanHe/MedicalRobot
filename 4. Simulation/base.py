@@ -9,7 +9,17 @@ class Base:
         self.create_sim()
         self.create_viewer()
         self.create_scene()
-
+    def reset(self):
+        if self.gym is not None:
+            self.gym.destroy_sim(self.sim)
+        if self.viewer is not None:
+            self.gym.destroy_viewer(self.viewer)
+        del self.gym
+        self.gym = gymapi.acquire_gym()
+        self.set_sim_params()
+        self.create_sim()
+        self.create_viewer()
+        self.create_scene()
     def set_sim_params(self):
         # initialize sim
         self.sim_params = gymapi.SimParams()
