@@ -35,7 +35,8 @@ Reducing a surgeon’s tremor is crucial for improving surgical outcomes and dec
   
 ## 2. Firmware
 This section provides an overview of the firmware used to control the actuators with IMU data.
-![Control Diagram](https://github.com/dn0908/24-1_MedicalRobotProject/assets/94898107/daedbcd0-cbcd-42c5-ae05-5cb622d8df03)
+![image](https://github.com/dn0908/24-1_MedicalRobotProject/assets/94898107/c038872f-b11c-475c-882e-7445bb3f8efd)
+
 
 
 ### Features
