@@ -35,6 +35,9 @@ Reducing a surgeon’s tremor is crucial for improving surgical outcomes and dec
   
 ## 2. Firmware
 This section provides an overview of the firmware used to control the actuators with IMU data.
+![image](https://github.com/dn0908/24-1_MedicalRobotProject/assets/94898107/c038872f-b11c-475c-882e-7445bb3f8efd)
+
+
 
 ### Features
 - **Control Code:** Developed using Dynamixel SDK (Python) and MPU 6050 + Arduino nano for serial communication.
