@@ -86,9 +86,9 @@ class Cancellor(Base):
             self.gym.set_actor_dof_properties(self.env0, cancellor, props)
         elif self.method == "MANIFOLD":
             props = self.gym.get_actor_dof_properties(self.env0, cancellor)
-            props["driveMode"] = (gymapi.DOF_MODE_VEL, gymapi.DOF_MODE_VEL, gymapi.DOF_MODE_POS, gymapi.DOF_MODE_POS)
-            props["stiffness"] = (0.0, 0.0, 5000.0, 5000.0)
-            props["damping"] = (200.0, 200.0, 100.0, 100.0)
+            props["driveMode"] = (gymapi.DOF_MODE_VEL, gymapi.DOF_MODE_VEL, gymapi.DOF_MODE_VEL, gymapi.DOF_MODE_VEL)
+            props["stiffness"] = (0.0, 0.0, 0.0, 0.0)
+            props["damping"] = (200.0, 200.0, 200.0, 200.0)
             self.gym.set_actor_dof_properties(self.env0, cancellor, props)
         # Set DOF drive targets
         self.Base_X_handle = self.gym.find_actor_dof_handle(self.env0, cancellor, 'move_x')
@@ -109,8 +109,8 @@ class Cancellor(Base):
             self.gym.set_dof_target_velocity(self.env0, self.Tip_X_handle, x)
             self.gym.set_dof_target_velocity(self.env0, self.Tip_Y_handle, y)
         elif self.method == "MANIFOLD":
-            self.gym.set_dof_target_position(self.env0, self.Tip_X_handle, x) #0.003
-            self.gym.set_dof_target_position(self.env0, self.Tip_Y_handle, y)
+            self.gym.set_dof_target_velocity(self.env0, self.Tip_X_handle, x) #0.003
+            self.gym.set_dof_target_velocity(self.env0, self.Tip_Y_handle, y)
         
     def desired_trajectory(self):
         # if pos >= 0.0:
@@ -134,7 +134,7 @@ class Cancellor(Base):
             yt = (self.gym.get_dof_position(self.env0, self.Base_Y_handle)) + (self.gym.get_dof_position(self.env0, self.Tip_Y_handle))
             self.obs_buf = torch.tensor([[xb, yb, xb, yb, xt, yt]], device=self.args.sim_device)
             obs = self.obs_buf.clone()
-            x, y = self.controller.compute(self.points, pos_x, pos_y, obs, self.epsilon)
+            x, y = self.controller.compute(self.points, xb, yb, obs, self.epsilon)
             self.actuate_Tip(x, y)
             self.action = x+y
         elif self.method == "MANIFOLD":
