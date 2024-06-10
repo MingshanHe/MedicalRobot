@@ -91,3 +91,32 @@ pip install requirement.txt
 python main.py
 ```
 
+
+
+# References
+
+**[1]** Taylor, R., Jensen, P., Whitcomb, L., Barnes, A., Kumar, R., Stoianovici, D., ... & Kavoussi, L. (1999). A steady-hand robotic system for microsurgical augmentation. **The International Journal of Robotics Research**, *18*(12), 1201-1210.
+
+**[2]** Roizenblatt, M., Edwards, T. L., & Gehlbach, P. L. (2018). Robot-assisted vitreoretinal surgery: current perspectives. **Robotic Surgery: Research and Reviews**, 1-11.
+
+**[3]** Nasab, M. H. A. (Ed.). (2019). *Handbook of robotic and image-guided surgery*. Elsevier.
+
+**[4]** Miller, J., Braun, M., Bilz, J., Matich, S., Neupert, C., Kunert, W., & Kirschniak, A. (2021). Impact of haptic feedback on applied intracorporeal forces using a novel surgical robotic system—a randomized cross-over study with novices in an experimental setup. **Surgical endoscopy**, *35*, 3554-3563.
+
+**[5]** MacLachlan, R. A., Becker, B. C., Tabares, J. C., Podnar, G. W., Lobes, L. A., & Riviere, C. N. (2011). Micron: an actively stabilized handheld tool for microsurgery. **IEEE** **Transactions** **on** **Robotics**, *28*(1), 195-212.
+
+**[6]** Yang, S., MacLachlan, R. A., & Riviere, C. N. (2014). Manipulator design and operation of a six-degree-of-freedom handheld tremor-canceling microsurgical instrument. **IEEE/ASME transactions on mechatronics**, *20*(2), 761-772.
+
+**[7]** Zhang, T., Gong, L., Wang, S., & Zuo, S. (2020). Hand-held instrument with integrated parallel mechanism for active tremor compensation during microsurgery. **Annals of Biomedical Engineering**, *48*, 413-425.
+
+**[8]** González-Rodríguez, A., Martín-Parra, A., Juárez-Pérez, S., Rodríguez-Rosa, D., Moya-Fernández, F., Castillo-García, F. J., & Rosado-Linares, J. (2023, May). Dynamic model of a novel planar cable driven parallel robot with a single cable loop. **Actuators** (Vol. 12, No. 5, p. 200). MDPI.
+
+**[9]** W. J. E. Teskey, M. Elhabiby, and N. El-Sheimy, “Inertial sensing to determine movement disorder motion present before and after treatment”, **Sensors**, vol. *12, no.* 3, pp. 3512-3527, Mar., 2012, DOI: 10.3390/s120303512
+
+**[10]** D. Lau, K. Bhalerao, D. Oetomo, and S. K. Halgamuge, "On the task specific evaluation and optimisation of cable-driven manipulators”, **Advances** **in reconfigurable mechanisms and** **robots***,* pp. 707-716, Springer London.
+
+**[11]** J. Townsend, N. Koep, and S. Weichwald, “Pymanopt: A Python Toolbox for Optimization on Manifolds using Automatic Differentiation”, **Journal of Machine Learning Research**, vol. 17, no. 137, pp. 1-5, 2016, DOI: http://jmlr.org/papers/v17/16-177.html.
+
+**[12]** V. Mnih, K. Kavukcuoglu, D. Silver, A. Graves, I. Antonoglou, D. Wierstra, and M. Riedmiller, “Playing Atari with Deep Reinforcement Learning”, **Arxiv**, Sep., 2012, DOI: 10.48550/arXiv.1312.5602.
+
+**[13]** V. Mnih, K. Kavukcuoglu, D. Silver, A. A Rusu, J. Veness, M. G Bellemare, A. Graves, M. Riedmiller, A. K Fidjeland, G. Ostrovski, S. Petersen, C. Beattie, A. Sadik, I. Antonoglou, H. King, D. Kumaran, D. Wierstra, S. Legg, and D. Hassabis, “Human-level control through deep reinforcement learning”, **Nature**, vol. 518, no. 7540, pp. 529-533, Feb., 2015, DOI: 10.1038/nature14236.
