@@ -1,5 +1,5 @@
 # 2024 Spring Medical Robot Project
-<img src="5. Images/0_Device_Overview.png" alt="Project Overview" style="zoom:100%;" />
+<img src="5. Attachment/0_Device_Overview.png" alt="Project Overview" style="zoom:100%;" />
 
 
 
@@ -25,7 +25,7 @@ Reducing a surgeon’s tremor is crucial for improving surgical outcomes and dec
 ## 1. Hardware
 
 ### Components
-<img src="5. Images/1_Hardware_Setup.png" alt="Device Setup" style="zoom:100%;" />
+<img src="5. Attachment/1_Hardware_Setup.png" alt="Device Setup" style="zoom:100%;" />
 
 
 | Component    | Description                                                                                       |
@@ -61,18 +61,24 @@ The tremor cancellor robot were imported with URDF format file, and prismatic jo
 
 ### Control Method
 #### 1) PID Control
+<img src="5. Attachment/7_PID.jpg" alt="DQN" style="zoom:80%;" />
 
-$u(t) = K_pe(t)+K_i\int e(t)dt+K_p\frac{de}{dt}$
+**PID** controller is familiar with us. It is widely used in control systems and a variety of other applications requiring continuously modulated control. 
 
 #### 2) Reinforcement Learning (Deep Q-Network) Control
 
-<img src="5. Images/3_DQN.jpeg" alt="DQN" style="zoom:50%;" />
+<img src="5. Attachment/3_DQN.jpeg" alt="DQN" style="zoom:50%;" />
+
+Last, compared with traditional control method, we tried reinforcement learning algorithm to train a neural network to compensate tremor noise.
 
 #### 3) Manifold-Based Control
 
-<img src="5. Images/4_Manifold.png" alt="Manifold" style="zoom: 5%;" />
+<img src="5. Attachment/6_Manifold.png" alt="Manifold" style="zoom: 50%;" />
+
+In sphere manifold, these parameter is easier to describe and intuitively. And then we tried to use manifold method to mapping the cartesian coordinate into the sphere manifold to check this controller’s feasibility
 
 ### Initialization
+
 To initialize the simulation, create an instance of the Cancellor class. You need to specify whether to save data, which control method to use, and additional arguments if using RL.
 ```python
 from cancellor import Cancellor
@@ -90,8 +96,14 @@ pip install requirement.txt
 ```bash
 python main.py
 ```
+### Videos
+Only for PID controller, other videos you can find out with this [link](https://github.com/MingshanHe/MedicalRobot/tree/master/5.%20Attachment).
 
+[1](https://github.com/MingshanHe/MedicalRobot/assets/56861752/d27b543f-0344-45d0-98b0-ae478afd664f)
 
+https://github.com/MingshanHe/MedicalRobot/assets/56861752/e157f718-d55b-4ff9-9e19-471e9b48f175
+
+https://github.com/MingshanHe/MedicalRobot/assets/56861752/d27b543f-0344-45d0-98b0-ae478afd664f
 
 # References
 
