@@ -1,0 +1,6 @@
+numpy
+autograd
+pymanopt
+torch
+collections
+random
