@@ -47,18 +47,26 @@ This section provides an overview of the firmware used to control the actuators 
 ### Code Overview
 
 ```python
-# Sample code snippet
-import dynamixel_sdk as dxl
-import serial
+# To be updated
 
-# Initialize serial communication for IMU
-ser = serial.Serial('/dev/COM11', 9600)
-
-# Initialize Dynamixel SDK
-port_num = dxl.PortHandler('/dev/ttyCOM12')
-packet_handler = dxl.PacketHandler(1.0)
 ```
 
   
 ## 3. Simulation
-    Vision
+This section involves simulating the device using the Isaac Gym physics simulation engine by NVIDIA. The simulation allows the use of different control methods, including PID control, Reinforcement Learning (RL), and a Manifold-based control method.
+
+### Initialization
+To initialize the simulation, create an instance of the Cancellor class. You need to specify whether to save data, which control method to use, and additional arguments if using RL.
+```python
+from cancellor import Cancellor
+from argparse import Namespace
+
+args = Namespace(num_envs=1, sim_device='cpu')
+cancellor = Cancellor(_save_data_=True, _method_='RL', args=args)
+```
+### Running the simulation
+The loopfunc method starts the simulation loop. If _save_data_ is set to True, the simulation data will be logged using the Logger class. The data includes base trajectory, tip trajectory, and error trajectory, which are saved in the logs directory. 
+```python
+cancellor = Cancellor(_save_data_=True,_method_="[CONTROL_METHOD]",args=args)
+cancellor.loopfunc()
+```
