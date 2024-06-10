@@ -1,3 +1,10 @@
+logo: /5. Attachment/LOGO.png
 theme: jekyll-theme-minimal
-title: Octocat's homepage
-description: Bookmark this to keep an eye on my project updates!
+title: Tremor Cancellor
+description: This is the website for Team 4's final project in the 2024-1 Introduction to Design of Medical Robots and Devices(SNU).
+show_downloads: true
+google_analytics:
+
+github:
+  zip_url: http://example.com/download.zip
+  another_url: another value
