@@ -1,31 +1,75 @@
 #include <Wire.h>
-#include <MPU6050.h>
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
 
-MPU6050 mpu;
+Adafruit_MPU6050 mpu;
+
+const float alpha = 0.98; // Complementary filter constant
+const float dt = 0.01;    // Loop time in sec
+
+float ax, ay, az;
+float gx, gy, gz;
+float vx = 0, vy = 0;
+float x = 0, y = 0;
+float angle_gyro = 0, angle_accel = 0, angle = 0;
 
 void setup() {
-  Wire.begin();
   Serial.begin(57600);
-  mpu.initialize();
-  if (!mpu.testConnection()) {
-    Serial.println("MPU6050 connection failed");
+  Wire.begin();
+  
+  if (!mpu.begin()) {
+    Serial.println("Failed to find MPU6050 chip");
     while (1);
   }
-  Serial.println("MPU6050 connected");
 }
 
 void loop() {
-  int16_t ax, ay, az;
-  mpu.getAcceleration(&ax, &ay, &az);
+  unsigned long startTime = millis();
 
-  // Convert raw values to g's
-  float ax_g = ax / 16384.0;
-  float ay_g = ay / 16384.0;
-  float az_g = az / 16384.0;
+  sensors_event_t accel, gyro, temp;
+  mpu.getEvent(&accel, &gyro, &temp);
 
-  Serial.print("aX: "); Serial.print(ax_g);
-  Serial.print(" aY: "); Serial.print(ay_g);
-  Serial.print(" aZ: "); Serial.println(az_g);
+  // Extract accelerometer data
+  ax = accel.acceleration.x;
+  ay = accel.acceleration.y;
+  az = accel.acceleration.z;
 
-  delay(100); //
+  // Extract gyro data
+  gx = gyro.gyro.x;
+  gy = gyro.gyro.y;
+  gz = gyro.gyro.z;
+
+  // Calc angle from acc
+  angle_accel = atan2(ay, az) * 180 / PI;
+
+  // Integrate the gyroscope data -> angle_gyro
+  angle_gyro += gx * dt;
+
+  // Apply the complementary filter
+  angle = alpha * (angle + gx * dt) + (1 - alpha) * angle_accel;
+
+  // Correct acceleration by subtracting gravity component
+  float ax_corrected = ax - sin(angle * PI / 180);
+  float ay_corrected = ay - sin(angle * PI / 180);
+
+  // integration acc > vel
+  vx += ax_corrected * dt * 9.81;
+  vy += ay_corrected * dt * 9.81;
+
+  // displacement calc
+  x += vx * dt;
+  y += vy * dt;
+
+  Serial.print(x);
+  Serial.print(",");
+  Serial.println(y);
+
+  // Reset x and y
+  x = 0;
+  y = 0;
+
+  // loop
+  while (millis() - startTime < dt * 1000) {
+    delay(1);
+  }
 }

@@ -24,8 +24,8 @@ class Controller:
     def __init__(self) -> None:
         logger.add(os.getcwd() + '\\test.log')
         logger.info('Initialization Two Line Actuators: X_controller and Y_controller')
-        self.X_controller = X_LineActuator("COM12", 57600, 1, "CURRENT-BASED-POSITION", 80, "COM12", 57600, 2, "CURRENT-BASED-POSITION", 80)
-        self.Y_controller = Y_LineActuator("COM12", 57600, 0, "CURRENT-BASED-POSITION", 80, "COM12", 57600, 3, "CURRENT-BASED-POSITION", 80)
+        self.X_controller = X_LineActuator("COM12", 57600, 0, "CURRENT-BASED-POSITION", 80, "COM12", 57600, 2, "CURRENT-BASED-POSITION", 80)
+        self.Y_controller = Y_LineActuator("COM12", 57600, 1, "CURRENT-BASED-POSITION", 80, "COM12", 57600, 3, "CURRENT-BASED-POSITION", 80)
         self.X = None
         self.Y = None
         self.p1 = None
@@ -42,7 +42,7 @@ class Controller:
     def calibration(self):
         current = 50
         p1, p2 = self.X_controller.calibration(-current, -current)
-        p3, p4 = self.Y_controller.calibration(current, current)
+        p3, p4 = self.Y_controller.calibration(-current, -current)
         logger.info(f"Calibration Result: X_controller Initial Position ({p1}, {p2}); Y_controller Initial Position ({p3}, {p4})")
         logger.info(f"Calibration Finished")
         self.p1 = p1

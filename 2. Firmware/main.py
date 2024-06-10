@@ -6,6 +6,12 @@ import time
 def main():
     controller = Controller()
     controller.calibration()
+    time.sleep(1)
+    
+    print("calibration done")
+    controller.move(0,0)
+    print("Moved to home position, wait for 2 seconds...")
+    time.sleep(2)
     imu_thread = Thread(target=read_imu_data, args=(controller,))
     imu_thread.start()
 
